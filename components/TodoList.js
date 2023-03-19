@@ -1,6 +1,7 @@
 import { collection, onSnapshot, query,orderBy } from "firebase/firestore"
 import { db } from "@/firebase/firebase"
 import { useState,useEffect } from "react"
+import Todo from "./Todo";
 
 export default function TodoList() {
     const [todos, setTodos]=useState([]);
@@ -19,7 +20,9 @@ export default function TodoList() {
 
   return (
     <div>
-        {todos.map(todo=><div key={todo.id}>{todo.baslik}</div>)}
+        {todos.map(todo=>
+            <Todo key={todo.id} todo={todo}/>
+        )}
     </div>
   )
 }
