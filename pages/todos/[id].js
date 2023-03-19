@@ -1,7 +1,8 @@
 import { async } from "@firebase/util"
-import { Grid } from "@mui/material"
+import { Grid,Button,Card, CardContent,CardActions,Typography } from "@mui/material"
 import { collection,doc,getDoc,getDocs } from "firebase/firestore"
 import { db } from "@/firebase/firebase";
+import Link from "next/link";
 
 export default function TodoDetail({todoProps}) {
     const todo=JSON.parse(todoProps);
@@ -9,7 +10,24 @@ export default function TodoDetail({todoProps}) {
   return (
     <Grid container spacing={0} direction="column" alignItems="center"
     justifyContent="center" style={{minHeight:"100vh"}}> 
-        {todo.baslik}
+        <Grid item xs={4}>
+            <Card sx={{minWidth:300, maxWidth:600, boxShadow:3}} style={{backgroundColor:"#fafafa"}}>
+                <CardContent>
+                    <Typography variant="h5" component="div">
+                        {todo.baslik}
+                    </Typography>
+                    <Typography variant="h5" component="div" sx={{mt:2}}
+                    color="GrayText">
+                        {todo.aciklama}
+                    </Typography>
+                </CardContent>
+                <CardActions>
+                    <Link href="/">
+                        <Button size="small">GERİ DÖN</Button>
+                    </Link>
+                </CardActions>
+            </Card>
+        </Grid>
     </Grid>
   )
 }
