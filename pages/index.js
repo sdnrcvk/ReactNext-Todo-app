@@ -9,7 +9,10 @@ export default function Home() {
   const [open,setOpen]=useState(false);
   const [alertType,setAlertType]=useState("success");
   const [alertMessage,setAlertMessage]=useState("");
-
+  const [todo,setTodo]=useState({
+    baslik:"",
+    aciklama:""
+  })
 
   const showAlert=(type,msg)=>{
     setAlertMessage(msg);
@@ -26,7 +29,7 @@ export default function Home() {
   };
 
   return (
-    <TodoContext.Provider value={{showAlert}}>
+    <TodoContext.Provider value={{showAlert,todo,setTodo}}>
         <Container maxWidth="md">
         <Head>
           <title>SC Todo App</title>

@@ -2,16 +2,27 @@ import { Button,TextField,Typography } from "@mui/material"
 import { collection,addDoc,serverTimestamp } from "firebase/firestore"
 import { db } from "@/firebase/firebase"
 import { async } from "@firebase/util"
-import { useContext,useState } from "react"
+import { useContext,useState,useRef,useEffect } from "react"
 import { TodoContext } from "@/contexts/TodoContext"
 
 export default function TodoForm() {
-    const {showAlert}=useContext(TodoContext);
+    const {showAlert,todo,setTodo}=useContext(TodoContext);
+    const inputRef=useRef();
 
-    const [todo,setTodo]=useState({
-        baslik:"",
-        aciklama:""
-    })
+    useEffect(()=>{
+        const tiklanmaKontrol=(e)=>{
+            if(!inputRef.current.contains(e.target)){
+                console.log("inputlara tıklandı");
+                setTodo({baslik:"",aciklama:""})
+            }else{
+                console.log("inputlar harici tıklandı");
+            }
+        }
+        document.addEventListener("mousedown",tiklanmaKontrol);
+        return ()=>{
+            document.removeEventListener("mousedown",tiklanmaKontrol);
+        }
+    },[])
 
     const handleClick=async(e)=>{
         e.preventDefault();
@@ -29,7 +40,8 @@ export default function TodoForm() {
     }
 
   return (
-    <div>
+    <div ref={inputRef}>
+        <pre>{JSON.stringify(todo,null,"\t")}</pre>
         <Typography sx={{mt:3,fontWeight:"bold"}} variant="h5"
         color="darkgrey">Yeni Todo Ekle</Typography>
         <TextField value={todo.baslik} fullWidth label="Başlık" margin="normal" onChange={(e)=>setTodo({...todo,baslik:e.target.value})}></TextField>

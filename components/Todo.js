@@ -11,7 +11,7 @@ import { db } from '@/firebase/firebase';
 
 export default function Todo({todo}) {
     const {id,baslik,aciklama,tarih}=todo;
-    const {showAlert}=useContext(TodoContext);
+    const {showAlert,setTodo}=useContext(TodoContext);
 
   const handleDelete=async(id,e)=>{
     e.preventDefault();
@@ -22,7 +22,7 @@ export default function Todo({todo}) {
   }
 
   return (
-    <ListItem sx={{mt:3,boxShadow:3}} style={{backgroundColor:"#FAFAFA"}} secondaryAction={
+    <ListItem onClick={()=>setTodo({id,baslik,aciklama,tarih})} sx={{mt:3,boxShadow:3}} style={{backgroundColor:"#FAFAFA"}} secondaryAction={
       <>
       <IconButton onClick={(e)=>handleDelete(id,e)}>
         <Delete/>
