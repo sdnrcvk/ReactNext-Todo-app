@@ -5,6 +5,7 @@ import TodoForm from '@/components/TodoForm'
 import { TodoContext } from '@/contexts/TodoContext'
 import { useState } from 'react'
 import Loading from '@/components/Loading'
+import Login from '@/components/Login'
 
 export default function Home() {
   const [open,setOpen]=useState(false);
@@ -29,6 +30,7 @@ export default function Home() {
     setOpen(false);
   };
   
+  return <Login/>
   return <Loading type="spinningBubbles" color="grey"/>
   return (
     <TodoContext.Provider value={{showAlert,todo,setTodo}}>
