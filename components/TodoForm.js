@@ -25,7 +25,7 @@ export default function TodoForm() {
         console.log(docRef);
         setTodo({baslik:"",aciklama:""})
         //alert(`${docRef.id} id li todo eklendi`)
-        showAlert("success",`${docRef.id} id li todo eklendi`);
+        showAlert("success",`${docRef.id} id'li todo eklendi`);
     }
 
   return (
