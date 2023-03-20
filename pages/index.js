@@ -30,8 +30,7 @@ export default function Home() {
     setOpen(false);
   };
   
-  return <Login/>
-  return <Loading type="spinningBubbles" color="grey"/>
+
   return (
     <TodoContext.Provider value={{showAlert,todo,setTodo}}>
         <Container maxWidth="md">
