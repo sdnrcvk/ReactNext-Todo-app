@@ -31,7 +31,7 @@ export default function AuthContextProvider({children}) {
     },[])
     
     if(loading){
-        return <Loading type="cubes" color="gray" />;
+        return <Loading type="spinningBubbles" color="gray" />;
     }
 
     if(!currentUser){

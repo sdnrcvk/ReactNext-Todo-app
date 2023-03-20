@@ -1,15 +1,17 @@
-import { collection, onSnapshot, query,orderBy } from "firebase/firestore"
+import { collection, onSnapshot, query,orderBy,where } from "firebase/firestore"
 import { db } from "@/firebase/firebase"
-import { useState,useEffect } from "react"
+import { useState,useEffect,useContext } from "react"
 import Todo from "./Todo";
 import { Typography } from "@mui/material";
+import { AuthContext } from "@/contexts/AuthContext";
 
 export default function TodoList() {
     const [todos, setTodos]=useState([]);
+    const {currentUser}=useContext(AuthContext);
 
     useEffect(()=>{
         const ref=collection(db,"todos");
-        const q=query(ref,orderBy("tarih","desc"))
+        const q=query(ref,where("kullaniciEmail",'==',currentUser?.email),orderBy("tarih","desc"))
         const unsub=onSnapshot(q,(snap)=>{
             setTodos(snap.docs.map(doc=>(
                 {...doc.data(),id:doc.id,tarih:doc.data().tarih?.toDate().getTime()}

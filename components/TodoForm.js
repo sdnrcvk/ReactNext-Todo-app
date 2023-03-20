@@ -4,10 +4,12 @@ import { db } from "@/firebase/firebase"
 import { async } from "@firebase/util"
 import { useContext,useState,useRef,useEffect } from "react"
 import { TodoContext } from "@/contexts/TodoContext"
+import { AuthContext } from "@/contexts/AuthContext"
 
 export default function TodoForm() {
     const {showAlert,todo,setTodo}=useContext(TodoContext);
     const inputRef=useRef();
+    const {currentUser}=useContext(AuthContext);
 
     useEffect(()=>{
         const tiklanmaKontrol=(e)=>{
@@ -43,7 +45,7 @@ export default function TodoForm() {
         }else{
             //ekleme
             const ref=collection(db,"todos");
-            const docRef=await addDoc(ref,{...todo,tarih:serverTimestamp()});
+            const docRef=await addDoc(ref,{...todo,kullaniciEmail:currentUser.email,tarih:serverTimestamp()}) ;           
             console.log(docRef);
             setTodo({baslik:"",aciklama:""})
             //alert(`${docRef.id} id li todo eklendi`)
